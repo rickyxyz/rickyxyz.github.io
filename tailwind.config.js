@@ -3,6 +3,15 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      keyframes: {
+        expand: {
+          "0%": { width: "0", overflow: "hidden" },
+          "100%": { width: "100%", overflow: "hidden" },
+        },
+      },
+      animation: {
+        expand: "expand 1.5s ease-in-out",
+      },
       width: {
         18: "4.6rem",
       },
