@@ -29,6 +29,7 @@ h5,
 h6 {
   letter-spacing: -0.03em;
   word-spacing: 0.07em;
+  color: #232527ff;
 }
 
 h1,
@@ -73,10 +74,6 @@ h5 {
 h6,
 a {
   font-size: 1.2rem;
-}
-
-a {
-  text-shadow: 3px 3px 0 #fdfdffff;
 }
 
 a:hover,
@@ -126,9 +123,6 @@ p {
   }
 
   p {
-    font-weight: 300;
     font-size: 1.2rem;
-    letter-spacing: -0.004em;
-    line-height: 1.9rem;
   }
 }
