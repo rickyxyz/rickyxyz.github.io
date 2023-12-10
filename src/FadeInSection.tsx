@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, useRef } from "react";
 
 interface FadeInSectionProps {
   children: ReactNode;
@@ -8,33 +8,39 @@ interface FadeInSectionProps {
 function FadeInSection({ children, className }: FadeInSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [hasBeenTriggered, setHasBeenTriggered] = useState(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (hasBeenTriggered) return;
-    const handleScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset;
+    const options = {
+      root: null, // Use the viewport as the root
+      rootMargin: "0px", // No margin
+      threshold: 0.1, // Trigger when 10% of the element is visible
+    };
 
-      // Adjust the threshold as needed for when you want the fade-in effect to trigger
-      if (scrollY > 10) {
+    const handleIntersect: IntersectionObserverCallback = (entries) => {
+      const entry = entries[0];
+
+      if (entry.isIntersecting && !hasBeenTriggered) {
         setIsVisible(true);
         setHasBeenTriggered(true);
-      } else {
-        setIsVisible(false);
       }
     };
 
-    // Attach the event listener when the component mounts
-    window.addEventListener("scroll", handleScroll);
+    const observer = new IntersectionObserver(handleIntersect, options);
 
-    // Clean up the event listener when the component unmounts
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
     };
-  }, [hasBeenTriggered]); // Empty dependency array ensures the effect runs only once on mount
+  }, [hasBeenTriggered]);
 
   return (
     <section
-      className={`transition-opacity duration-1000 ${
+      ref={sectionRef}
+      className={`transition-opacity duration-700 ${
         isVisible ? "opacity-100" : "opacity-0"
       } ${className}`}
     >

@@ -50,7 +50,7 @@ const skills = [
 
 function App() {
   return (
-    <main className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-10 px-8 md:px-20 md:pt-16 md:gap-y-32 max-w-7xl">
+    <main className="w-full flex flex-col gap-y-12 gap-x-10 px-8 md:px-20 md:pt-16 md:gap-y-72 max-w-7xl">
       <section className="relative w-full flex md:col-span-2">
         <div className="w-2 h-full bg-dark_orange absolute -left-4" />
         <div className="animate-expand">
@@ -104,7 +104,7 @@ function App() {
         </div>
         <a className="self-end w-28">See more</a>
       </FadeInSection>
-      <section className="pb-32 md:col-span-2 w-full flex flex-col gap-4 md:gap-8">
+      <FadeInSection className="pb-32 md:col-span-2 w-full flex flex-col gap-4 md:gap-8">
         <h2 className="text-dark_orange">Contact</h2>
         <div className="grid grid-cols-2 justify-between items-start">
           <div>
@@ -132,7 +132,7 @@ function App() {
             </ul>
           </div>
         </div>
-      </section>
+      </FadeInSection>
     </main>
   );
 }
