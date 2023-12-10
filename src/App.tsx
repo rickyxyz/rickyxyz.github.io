@@ -69,25 +69,31 @@ function App() {
       </section>
       <FadeInSection className="w-full flex flex-col gap-4 md:gap-8 justify-start relative">
         <h2 className="text-dark_orange">About Me</h2>
-        <p className="md:w-5/6">
-          I thrive on the satisfaction of creating solutions that users navigate
-          effortlessly and genuinely enjoy using. Whether I'm creating a new
-          feature or optimizing existing functionality, simplicity is at the
-          core of my work.
-        </p>
-      </FadeInSection>
-      <FadeInSection className="min-h w-full flex flex-col gap-4 md:gap-8 justify-start md:w-10/12 relative">
-        <h2 className="text-dark_orange">My Toolkit</h2>
-        <ul className="flex flex-row flex-wrap w-full gap-x-6 gap-y-4">
-          {skills.map((skill) => (
-            <li key={`skill-${skill.name}`}>
-              <h6 className="flex flex-row items-center gap-2 text-almost_black">
-                <span className="text-darker_black">{skill.icon}</span>
-                {skill.name}
-              </h6>
-            </li>
-          ))}
-        </ul>
+        <div className="grid grid-cols-2">
+          <div className="flex flex-col gap-4">
+            <h4>My Principles</h4>
+            <p className="md:w-5/6">
+              Whether I&apos;m creating a new feature or optimizing existing
+              functionality, simplicity is at the core of my work. I also employ
+              test-driven development in my work, and create systems to prevent
+              error. I also prioritize an exceptional developer experience in my
+              work.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <h4>My Toolkit</h4>
+            <ul className="flex flex-row flex-wrap w-full gap-x-6 gap-y-2">
+              {skills.map((skill) => (
+                <li key={`skill-${skill.name}`}>
+                  <p className="flex flex-row items-center gap-2 text-almost_black">
+                    <span className="text-darker_black">{skill.icon}</span>
+                    {skill.name}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </FadeInSection>
       <FadeInSection className="md:col-span-2 w-full flex flex-col gap-4 md:gap-8">
         <h2 className="text-dark_orange">Projects</h2>
