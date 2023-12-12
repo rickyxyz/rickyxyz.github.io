@@ -5,16 +5,16 @@ function Header() {
       <nav className="hidden md:block">
         <ol className="flex flex-row gap-8">
           <li className="w-18">
-            <a href="#">Home</a>
+            <a href="#home">Home</a>
           </li>
           <li className="w-18">
-            <a href="#">About</a>
+            <a href="#about">About</a>
           </li>
           <li className="w-24">
-            <a href="#">Projects</a>
+            <a href="#project">Projects</a>
           </li>
           <li className="w-24">
-            <a href="#">Contact</a>
+            <a href="#contact">Contact</a>
           </li>
         </ol>
       </nav>

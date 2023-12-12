@@ -1,20 +1,21 @@
 import { useState, useEffect, ReactNode, useRef } from "react";
 
-interface FadeInSectionProps {
+interface FadeInSectionProps
+  extends React.ButtonHTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   className: string;
 }
 
-function FadeInSection({ children, className }: FadeInSectionProps) {
+function FadeInSection({ children, className, ...props }: FadeInSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [hasBeenTriggered, setHasBeenTriggered] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const options = {
-      root: null, // Use the viewport as the root
-      rootMargin: "0px", // No margin
-      threshold: 0.1, // Trigger when 10% of the element is visible
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1,
     };
 
     const handleIntersect: IntersectionObserverCallback = (entries) => {
@@ -43,6 +44,7 @@ function FadeInSection({ children, className }: FadeInSectionProps) {
       className={`transition-opacity duration-700 ${
         isVisible ? "opacity-100" : "opacity-0"
       } ${className}`}
+      {...props}
     >
       {children}
     </section>
