@@ -80,7 +80,7 @@ function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6">
           <div className="flex flex-col gap-4">
             <h4>My Principles</h4>
-            <p className="md:w-5/6">
+            <p className="md:w-5/6 text-justify">
               Whether I&apos;m creating a new feature or optimizing existing
               functionality, simplicity is at the core of my work. I also employ
               test-driven development in my work, and create systems to prevent
