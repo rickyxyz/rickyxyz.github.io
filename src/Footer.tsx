@@ -11,7 +11,6 @@ function Footer() {
           <li>
             <a
               href="https://www.linkedin.com/in/rickyaryanto/"
-              className="underline"
               target="_blank"
               rel="noopener noreferrer"
             >

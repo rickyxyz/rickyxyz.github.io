@@ -9,8 +9,12 @@ import {
   SiHtml5,
   SiLinkedin,
   SiGithub,
+  SiFirebase,
+  SiNotion,
 } from "react-icons/si";
+import { VscTriangleRight, VscTriangleLeft } from "react-icons/vsc";
 import { MdEmail } from "react-icons/md";
+import { FaExternalLinkAlt } from "react-icons/fa";
 import FadeInSection from "./FadeInSection";
 
 const skills = [
@@ -23,12 +27,8 @@ const skills = [
     icon: <SiReact />,
   },
   {
-    name: "HTML",
-    icon: <SiHtml5 />,
-  },
-  {
-    name: "CSS",
-    icon: <SiCss3 />,
+    name: "Firebase",
+    icon: <SiFirebase />,
   },
   {
     name: "Tailwind",
@@ -39,8 +39,35 @@ const skills = [
     icon: <SiSass />,
   },
   {
+    name: "Typescript",
+    icon: <SiTypescript />,
+  },
+  {
     name: "Javascript",
     icon: <SiJavascript />,
+  },
+  {
+    name: "HTML",
+    icon: <SiHtml5 />,
+  },
+  {
+    name: "CSS",
+    icon: <SiCss3 />,
+  },
+];
+
+const rideRideTech = [
+  {
+    name: "React.js",
+    icon: <SiReact />,
+  },
+  {
+    name: "Firebase",
+    icon: <SiFirebase />,
+  },
+  {
+    name: "Tailwind",
+    icon: <SiTailwindcss />,
   },
   {
     name: "Typescript",
@@ -77,7 +104,7 @@ function App() {
         <h2 className="text-dark_orange relative before:absolute before:top-1 before:-left-4 before:h-full before:w-2 before:bg-dark_orange">
           About Me
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6">
+        <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-y-6">
           <div className="flex flex-col gap-4">
             <h4>My Principles</h4>
             <p className="md:w-5/6 text-justify">
@@ -90,10 +117,13 @@ function App() {
           </div>
           <div className="flex flex-col gap-4">
             <h4>My Toolkit</h4>
-            <ul className="flex flex-row flex-wrap w-full gap-x-3 gap-y-1 md:gap-x-6 md:gap-y-2">
+            <ul className="flex flex-row flex-wrap w-full gap-1">
               {skills.map((skill) => (
-                <li key={`skill-${skill.name}`}>
-                  <p className="flex flex-row items-center gap-2 text-almost_black">
+                <li
+                  key={`skill-${skill.name}`}
+                  className="border-[1px] border-almost_black rounded-sm px-2"
+                >
+                  <p className="flex flex-row items-center gap-1 text-almost_black">
                     <span className="text-darker_black">{skill.icon}</span>
                     {skill.name}
                   </p>
@@ -107,18 +137,67 @@ function App() {
         className="md:col-span-2 w-full flex flex-col gap-8"
         id="project"
       >
-        <h2 className="text-dark_orange relative before:absolute before:top-1 before:-left-4 before:h-full before:w-2 before:bg-dark_orange">
+        <h2 className="text-dark_orange relative before:absolute before:top-1 before:-left-4 before:h-full before:w-2 before:bg-dark_orange mb-8">
           Projects
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 gap-y-6 h-96 justify-between">
-          <article className="border-2 border-orange rounded-sm">
-            <h3>Fruit</h3>
-          </article>
-          <article className="border-2 border-orange rounded-sm">
-            <h3>Fruit</h3>
-          </article>
-          <article className="border-2 border-orange rounded-sm">
-            <h3>Fruit</h3>
+        <div className="flex flex-col gap-3 gap-y-6 justify-between divide-y-2 divide-solid">
+          <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr]">
+            <div className="self-start py-6">
+              <h3>Ride-Ride</h3>
+              <p>Website for bike rental business</p>
+              <ul className="flex flex-col mt-6">
+                <li>
+                  <a
+                    href="https://ride-ride.vercel.app/"
+                    className="underline flex flex-row items-center gap-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaExternalLinkAlt size={14} />
+                    <p>Live demo</p>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/rickyxyz/ride-ride"
+                    className="underline flex flex-row items-center gap-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SiGithub size={14} />
+                    <p>Source code</p>
+                  </a>
+                </li>
+              </ul>
+              <hr className="my-6" />
+              <p className="font-semibold mb-2">Built with:</p>
+              <ul className="flex flex-row flex-wrap w-full gap-x-1 gap-y-1">
+                {rideRideTech.map((skill) => (
+                  <li key={`skill-${skill.name}`}>
+                    <p className="flex flex-row items-center gap-1 text-almost_black border-[1px] border-almost_black rounded-sm px-2">
+                      <span className="text-darker_black">{skill.icon}</span>
+                      {skill.name}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="relative">
+              <button className="rounded-sm absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm">
+                <VscTriangleLeft className="text-base md:text-3xl" />
+              </button>
+              <div className="flex flex-col items-center flex-1 gap-1 rounded-sm shadow-lg overflow-hidden">
+                <img
+                  src="/ride-ride/landing.png"
+                  alt="Landing Page"
+                  className="h-48 md:h-96 w-full object-cover animate-scroll"
+                  style={{ objectPosition: "0% 0%" }}
+                />
+              </div>
+              <button className="rounded-sm absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm">
+                <VscTriangleRight className="text-base md:text-3xl" />
+              </button>
+            </div>
           </article>
         </div>
         {/* <a className="self-end w-28 text-right">See more</a> */}
