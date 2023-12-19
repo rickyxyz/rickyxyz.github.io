@@ -10,7 +10,6 @@ import {
   SiLinkedin,
   SiGithub,
   SiFirebase,
-  SiNotion,
 } from "react-icons/si";
 import { VscTriangleRight, VscTriangleLeft } from "react-icons/vsc";
 import { MdEmail } from "react-icons/md";
