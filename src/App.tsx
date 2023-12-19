@@ -15,6 +15,7 @@ import { VscTriangleRight, VscTriangleLeft } from "react-icons/vsc";
 import { MdEmail } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import FadeInSection from "./FadeInSection";
+import rideRideLandingPage from "/landing.png";
 
 const skills = [
   {
@@ -187,7 +188,7 @@ function App() {
               </button>
               <div className="flex flex-col items-center flex-1 gap-1 rounded-sm shadow-lg overflow-hidden">
                 <img
-                  src="/ride-ride/landing.png"
+                  src={rideRideLandingPage}
                   alt="Landing Page"
                   className="h-48 md:h-96 w-full object-cover animate-scroll"
                   style={{ objectPosition: "0% 0%" }}
