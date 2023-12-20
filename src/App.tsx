@@ -16,12 +16,12 @@ import { MdEmail } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import FadeInSection from "./FadeInSection";
 import { useState } from "react";
-import rideRideLandingPage from "/landing.png";
-import riderideCatalog from "/bikecatalog.png";
-import riderideForm from "/bookbike.png";
-import riderideCheckout from "/checkout.png";
-import riderideSummary from "/summary.png";
-import riderideLang from "/lang.png";
+import rideRideLandingPage from "/landing.webp";
+import riderideCatalog from "/bikecatalog.webp";
+import riderideForm from "/bookbike.webp";
+import riderideCheckout from "/checkout.webp";
+import riderideSummary from "/summary.webp";
+import riderideLang from "/lang.webp";
 
 const skills = [
   {
