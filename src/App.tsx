@@ -126,10 +126,10 @@ function App() {
             <h4>My Principles</h4>
             <p className="md:w-5/6 text-justify">
               Whether I&apos;m creating a new feature or optimizing existing
-              functionality, simplicity is at the core of my work. I also employ
-              test-driven development in my work, and create systems to prevent
-              error. I also prioritize an exceptional developer experience in my
-              work.
+              functionality, simplicity is at the core of my work. I try create
+              systems to prevent myself from making error. I also prioritize an
+              exceptional developer experience in my work along with great user
+              experience.
             </p>
           </div>
           <div className="flex flex-col gap-4">
@@ -158,12 +158,13 @@ function App() {
           Projects
         </h2>
         <div className="flex flex-col gap-3 gap-y-6 justify-between divide-y-2 divide-solid">
-          <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr]">
-            <div className="self-center">
+          <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr] items-center">
+            <div className="pr-10">
               <h3>Ride-Ride</h3>
               <p>
-                Demo website for a bicycle rental business with multi-language
-                support.
+                A demo website designed for a bicycle rental business. Equipped
+                with multi-language support and connection to Firebase for data
+                retrieval and form submission.
               </p>
               <ul className="flex flex-col mt-8">
                 <li>
