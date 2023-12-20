@@ -213,7 +213,7 @@ function App() {
               <div className="flex flex-col items-center flex-1 gap-1 rounded-sm shadow-lg overflow-hidden">
                 <img
                   src={carouselContent[activeImage].image}
-                  alt="Landing Page"
+                  alt={carouselContent[activeImage].text}
                   className={`h-48 md:h-96 w-full object-cover ${
                     activeImage === 0 ? "animate-scroll" : "object-top"
                   }`}
