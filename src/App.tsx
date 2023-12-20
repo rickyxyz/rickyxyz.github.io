@@ -15,7 +15,13 @@ import { VscTriangleRight, VscTriangleLeft } from "react-icons/vsc";
 import { MdEmail } from "react-icons/md";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import FadeInSection from "./FadeInSection";
+import { useState } from "react";
 import rideRideLandingPage from "/landing.png";
+import riderideCatalog from "/bikecatalog.png";
+import riderideForm from "/bookbike.png";
+import riderideCheckout from "/checkout.png";
+import riderideSummary from "/summary.png";
+import riderideLang from "/lang.png";
 
 const skills = [
   {
@@ -75,7 +81,18 @@ const rideRideTech = [
   },
 ];
 
+const carouselContent = [
+  { image: rideRideLandingPage, text: "homepage" },
+  { image: riderideCatalog, text: "bike catalog" },
+  { image: riderideForm, text: "booking form" },
+  { image: riderideCheckout, text: "checkout page" },
+  { image: riderideSummary, text: "checkout summary" },
+  { image: riderideLang, text: "multi-language support" },
+];
+
 function App() {
+  const [activeImage, setActiveImage] = useState(0);
+
   return (
     <main
       className="w-full flex flex-col gap-y-24 gap-x-10 px-8 md:px-20 md:pt-16 md:gap-y-72 max-w-7xl"
@@ -137,15 +154,18 @@ function App() {
         className="md:col-span-2 w-full flex flex-col gap-8"
         id="project"
       >
-        <h2 className="text-dark_orange relative before:absolute before:top-1 before:-left-4 before:h-full before:w-2 before:bg-dark_orange mb-8">
+        <h2 className="text-dark_orange relative before:absolute before:top-1 before:-left-4 before:h-full before:w-2 before:bg-dark_orange mb-10">
           Projects
         </h2>
         <div className="flex flex-col gap-3 gap-y-6 justify-between divide-y-2 divide-solid">
           <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr]">
-            <div className="self-start py-6">
+            <div className="self-center">
               <h3>Ride-Ride</h3>
-              <p>Website for bike rental business</p>
-              <ul className="flex flex-col mt-6">
+              <p>
+                Demo website for a bicycle rental business with multi-language
+                support.
+              </p>
+              <ul className="flex flex-col mt-8">
                 <li>
                   <a
                     href="https://ride-ride.vercel.app/"
@@ -183,18 +203,29 @@ function App() {
               </ul>
             </div>
             <div className="relative">
-              <button className="rounded-sm absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm">
+              <button
+                className="rounded-sm absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm"
+                onClick={() => setActiveImage((prev) => (6 + prev - 1) % 6)}
+              >
                 <VscTriangleLeft className="text-base md:text-3xl" />
               </button>
               <div className="flex flex-col items-center flex-1 gap-1 rounded-sm shadow-lg overflow-hidden">
                 <img
-                  src={rideRideLandingPage}
+                  src={carouselContent[activeImage].image}
                   alt="Landing Page"
-                  className="h-48 md:h-96 w-full object-cover animate-scroll"
+                  className={`h-48 md:h-96 w-full object-cover ${
+                    activeImage === 0 ? "animate-scroll" : "object-top"
+                  }`}
                   style={{ objectPosition: "0% 0%" }}
                 />
               </div>
-              <button className="rounded-sm absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm">
+              <p className="text-xs capitalize text-center mt-1">
+                {carouselContent[activeImage].text}
+              </p>
+              <button
+                className="rounded-sm absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm"
+                onClick={() => setActiveImage((prev) => (prev + 1) % 6)}
+              >
                 <VscTriangleRight className="text-base md:text-3xl" />
               </button>
             </div>

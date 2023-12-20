@@ -5,7 +5,7 @@ function Footer() {
     <footer className="bg-almost_black w-full flex flex-col items-center p-10">
       <div className="max-w-6xl w-full text-almost_white flex md:flex-row flex-col gap-y-4 justify-between">
         <span className="text-almost_white">
-          <p>Designed and built by Ricky A.</p>
+          <p>Designed and built by rickyxyz</p>
         </span>
         <ul className="flex flex-row gap-4 items-center">
           <li>
