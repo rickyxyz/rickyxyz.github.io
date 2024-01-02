@@ -10,6 +10,9 @@ import {
   SiLinkedin,
   SiGithub,
   SiFirebase,
+  SiFigma,
+  SiVuedotjs,
+  SiChartdotjs,
 } from "react-icons/si";
 import { VscTriangleRight, VscTriangleLeft } from "react-icons/vsc";
 import { MdEmail } from "react-icons/md";
@@ -22,6 +25,9 @@ import riderideForm from "/bookbike.webp";
 import riderideCheckout from "/checkout.webp";
 import riderideSummary from "/summary.webp";
 import riderideLang from "/lang.webp";
+import knn from "/knn.webp";
+import lr from "/lr.webp";
+import empty from "/empty.webp";
 
 const skills = [
   {
@@ -31,6 +37,10 @@ const skills = [
   {
     name: "React.js",
     icon: <SiReact />,
+  },
+  {
+    name: "Vue.Js",
+    icon: <SiVuedotjs />,
   },
   {
     name: "Firebase",
@@ -60,6 +70,14 @@ const skills = [
     name: "CSS",
     icon: <SiCss3 />,
   },
+  {
+    name: "Chart.Js",
+    icon: <SiChartdotjs />,
+  },
+  {
+    name: "Figma",
+    icon: <SiFigma />,
+  },
 ];
 
 const rideRideTech = [
@@ -79,9 +97,24 @@ const rideRideTech = [
     name: "Typescript",
     icon: <SiTypescript />,
   },
+  {
+    name: "Figma",
+    icon: <SiFigma />,
+  },
 ];
 
-const carouselContent = [
+const mlvTech = [
+  {
+    name: "Vue.Js",
+    icon: <SiVuedotjs />,
+  },
+  {
+    name: "Chart.Js",
+    icon: <SiChartdotjs />,
+  },
+];
+
+const carouselContent1 = [
   { image: rideRideLandingPage, text: "homepage" },
   { image: riderideCatalog, text: "bike catalog" },
   { image: riderideForm, text: "booking form" },
@@ -90,8 +123,15 @@ const carouselContent = [
   { image: riderideLang, text: "multi-language support" },
 ];
 
+const carouselContent2 = [
+  { image: knn, text: "K-Nearest Neighbour" },
+  { image: lr, text: "linear regression" },
+  { image: empty, text: "empty form" },
+];
+
 function App() {
   const [activeImage, setActiveImage] = useState(0);
+  const [activeImage2, setActiveImage2] = useState(0);
 
   return (
     <main
@@ -157,8 +197,8 @@ function App() {
         <h2 className="text-dark_orange relative before:absolute before:top-1 before:-left-4 before:h-full before:w-2 before:bg-dark_orange mb-10">
           Projects
         </h2>
-        <div className="flex flex-col gap-3 gap-y-6 justify-between divide-y-2 divide-solid">
-          <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr] items-center">
+        <div className="flex flex-col gap-3 gap-y-24 justify-between">
+          <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr] items-center border-t-2 border-gray-100">
             <div className="pr-10">
               <h3>Ride-Ride</h3>
               <p>
@@ -212,8 +252,8 @@ function App() {
               </button>
               <div className="flex flex-col items-center flex-1 gap-1 rounded-sm shadow-lg overflow-hidden">
                 <img
-                  src={carouselContent[activeImage].image}
-                  alt={carouselContent[activeImage].text}
+                  src={carouselContent1[activeImage].image}
+                  alt={carouselContent1[activeImage].text}
                   className={`h-48 md:h-96 w-full object-cover ${
                     activeImage === 0 ? "animate-scroll" : "object-top"
                   }`}
@@ -221,11 +261,84 @@ function App() {
                 />
               </div>
               <p className="text-xs capitalize text-center mt-1">
-                {carouselContent[activeImage].text}
+                {carouselContent1[activeImage].text}
               </p>
               <button
                 className="rounded-sm absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm"
                 onClick={() => setActiveImage((prev) => (prev + 1) % 6)}
+              >
+                <VscTriangleRight className="text-base md:text-3xl" />
+              </button>
+            </div>
+          </article>
+          <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr] items-center border-t-2 border-gray-100">
+            <div className="pr-10">
+              <h3>ML-Visualizer</h3>
+              <p>
+                An old university webapp project to visualize simple machine
+                learning algorithm: k-nearest neighbour and linear regression.
+                User can also upload and download their own .csv files.
+              </p>
+              <ul className="flex flex-col mt-8">
+                <li>
+                  <a
+                    href="https://rickyxyz.github.io/ML-Visualizer-Public"
+                    className="underline flex flex-row items-center gap-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaExternalLinkAlt size={14} />
+                    <p>Live demo</p>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/rickyxyz/ML-Visualizer-Public/tree/gh-pages"
+                    className="underline flex flex-row items-center gap-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SiGithub size={14} />
+                    <p>Source code</p>
+                  </a>
+                </li>
+              </ul>
+              <hr className="my-6" />
+              <p className="font-semibold mb-2">Built with:</p>
+              <ul className="flex flex-row flex-wrap w-full gap-x-1 gap-y-1">
+                {mlvTech.map((skill) => (
+                  <li key={`skill-${skill.name}`}>
+                    <p className="flex flex-row items-center gap-1 text-almost_black border-[1px] border-almost_black rounded-sm px-2">
+                      <span className="text-darker_black">{skill.icon}</span>
+                      {skill.name}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="relative">
+              <button
+                className="rounded-sm absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm"
+                onClick={() => setActiveImage2((prev) => (3 + prev - 1) % 3)}
+              >
+                <VscTriangleLeft className="text-base md:text-3xl" />
+              </button>
+              <div className="flex flex-col items-center flex-1 gap-1 rounded-sm shadow-lg overflow-hidden">
+                <img
+                  src={carouselContent2[activeImage2].image}
+                  alt={carouselContent2[activeImage2].text}
+                  className={`h-48 md:h-96 w-full object-cover ${
+                    activeImage2 === 0 ? "animate-scroll" : "object-top"
+                  }`}
+                  style={{ objectPosition: "0% 0%" }}
+                />
+              </div>
+              <p className="text-xs capitalize text-center mt-1">
+                {carouselContent2[activeImage2].text}
+              </p>
+              <button
+                className="rounded-sm absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm"
+                onClick={() => setActiveImage2((prev) => (prev + 1) % 3)}
               >
                 <VscTriangleRight className="text-base md:text-3xl" />
               </button>
