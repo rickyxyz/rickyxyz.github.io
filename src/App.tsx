@@ -149,8 +149,7 @@ function App() {
             <span className="text-dark_orange">Ricky</span>
           </h1>
           <h2 className="pl-1 md:pl-3 mt-2 text-darker_black whitespace-nowrap">
-            Front-end <br />
-            React Developer
+            Web Developer
           </h2>
         </div>
       </section>
