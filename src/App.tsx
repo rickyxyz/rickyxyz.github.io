@@ -13,6 +13,8 @@ import {
   SiFigma,
   SiVuedotjs,
   SiChartdotjs,
+  SiVitest,
+  SiPlaywright,
 } from "react-icons/si";
 import { VscTriangleRight, VscTriangleLeft } from "react-icons/vsc";
 import { MdEmail } from "react-icons/md";
@@ -28,6 +30,9 @@ import riderideLang from "/lang.webp";
 import knn from "/knn.webp";
 import lr from "/lr.webp";
 import empty from "/empty.webp";
+import browsepage from "/browsepage.webp";
+import circlepage from "/circlepage.webp";
+import icecreampost from "/icecreampost.webp";
 
 const skills = [
   {
@@ -114,6 +119,33 @@ const mlvTech = [
   },
 ];
 
+const ccTech = [
+  {
+    name: "React.js",
+    icon: <SiReact />,
+  },
+  {
+    name: "Firebase",
+    icon: <SiFirebase />,
+  },
+  {
+    name: "Tailwind",
+    icon: <SiTailwindcss />,
+  },
+  {
+    name: "Typescript",
+    icon: <SiTypescript />,
+  },
+  {
+    name: "Vitest",
+    icon: <SiVitest />,
+  },
+  {
+    name: "Playwright",
+    icon: <SiPlaywright />,
+  },
+];
+
 const carouselContent1 = [
   { image: rideRideLandingPage, text: "homepage" },
   { image: riderideCatalog, text: "bike catalog" },
@@ -129,9 +161,16 @@ const carouselContent2 = [
   { image: empty, text: "empty form" },
 ];
 
+const carouselContent3 = [
+  { image: browsepage, text: "browse circles" },
+  { image: circlepage, text: "circle page" },
+  { image: icecreampost, text: "post page" },
+];
+
 function App() {
   const [activeImage, setActiveImage] = useState(0);
   const [activeImage2, setActiveImage2] = useState(0);
+  const [activeImage3, setActiveImage3] = useState(0);
 
   return (
     <main
@@ -197,6 +236,79 @@ function App() {
           Projects
         </h2>
         <div className="flex flex-col gap-3 gap-y-24 justify-between">
+          <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr] items-center border-t-2 border-gray-100">
+            <div className="pr-10">
+              <h3>Circle-Circle</h3>
+              <p>
+                A Reddit clone, I made to practice testing and writing better
+                React component. The site is equipped with search feature, image
+                upload, and recursive comment.
+              </p>
+              <ul className="flex flex-col mt-8">
+                <li>
+                  <a
+                    href="https://circle-circle.vercel.app"
+                    className="underline flex flex-row items-center gap-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaExternalLinkAlt size={14} />
+                    <p>Live demo</p>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/rickyxyz/circle-circle"
+                    className="underline flex flex-row items-center gap-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SiGithub size={14} />
+                    <p>Source code</p>
+                  </a>
+                </li>
+              </ul>
+              <hr className="my-6" />
+              <p className="font-semibold mb-2">Built with:</p>
+              <ul className="flex flex-row flex-wrap w-full gap-x-1 gap-y-1">
+                {ccTech.map((skill) => (
+                  <li key={`skill-${skill.name}`}>
+                    <p className="flex flex-row items-center gap-1 text-almost_black border-[1px] border-almost_black rounded-sm px-2">
+                      <span className="text-darker_black">{skill.icon}</span>
+                      {skill.name}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="relative">
+              <button
+                className="rounded-sm absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm"
+                onClick={() => setActiveImage3((prev) => (3 + prev - 1) % 3)}
+              >
+                <VscTriangleLeft className="text-base md:text-3xl" />
+              </button>
+              <div className="flex flex-col items-center flex-1 gap-1 rounded-sm shadow-lg overflow-hidden">
+                <img
+                  src={carouselContent3[activeImage3].image}
+                  alt={carouselContent3[activeImage3].text}
+                  className={`h-48 md:h-96 w-full object-cover ${
+                    activeImage3 === 0 ? "animate-scroll" : "object-top"
+                  }`}
+                  style={{ objectPosition: "0% 0%" }}
+                />
+              </div>
+              <p className="text-xs capitalize text-center mt-1">
+                {carouselContent3[activeImage3].text}
+              </p>
+              <button
+                className="rounded-sm absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm"
+                onClick={() => setActiveImage2((prev) => (prev + 1) % 3)}
+              >
+                <VscTriangleRight className="text-base md:text-3xl" />
+              </button>
+            </div>
+          </article>
           <article className="flex flex-col-reverse md:grid md:grid-cols-[4fr,6fr] items-center border-t-2 border-gray-100">
             <div className="pr-10">
               <h3>Ride-Ride</h3>
