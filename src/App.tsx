@@ -187,7 +187,7 @@ function App() {
             <br />
             <span className="text-dark_orange">Ricky</span>
           </h1>
-          <h2 className="pl-1 md:pl-3 mt-2 text-darker_black whitespace-nowrap">
+          <h2 className="pl-1 md:pl-3 mt-3 text-darker_black whitespace-nowrap">
             Web Developer
           </h2>
         </div>
@@ -303,7 +303,7 @@ function App() {
               </p>
               <button
                 className="rounded-sm absolute top-1/2 -translate-y-1/2 right-0 translate-x-1/2 bg-[#f0f0f0] px-1 md:px-2 py-4 text-dark_orange hover:scale-110 duration-75 transition-transform shadow-sm"
-                onClick={() => setActiveImage2((prev) => (prev + 1) % 3)}
+                onClick={() => setActiveImage3((prev) => (prev + 1) % 3)}
               >
                 <VscTriangleRight className="text-base md:text-3xl" />
               </button>
