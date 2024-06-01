@@ -21,27 +21,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         display: block;
         margin: 0 auto;
         border-radius: 12px;
-        box-shadow: var(--box-shadow);
       }
       .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
         margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
+        padding: 0.5rem;
+        color: var(--text);
       }
       .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
+        margin-bottom: 2rem;
+        padding: 1rem 0;
         line-height: 1;
       }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-      }
       .date {
-        margin-bottom: 0.5em;
-        color: rgb(var(--gray));
+        color: var(--secondary);
       }
       .last-updated-on {
         font-style: italic;
@@ -62,6 +54,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         </div>
         <div class="prose">
           <div class="title">
+            <h1>{title}</h1>
             <div class="date">
               <FormattedDate date={pubDate} />
               {
@@ -72,7 +65,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
                 )
               }
             </div>
-            <h1>{title}</h1>
             <hr />
           </div>
           <slot />
