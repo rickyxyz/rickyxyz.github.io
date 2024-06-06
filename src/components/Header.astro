@@ -19,12 +19,13 @@ import { SITE_TITLE } from "../consts";
 <style>
   header {
     margin: auto;
-    padding: 1rem 0 4rem 0;
-    width: 720px;
+    padding: 1rem;
+    padding-bottom: 4rem;
     display: flex;
+    max-width: 720px;
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
   }
   .separator {
     height: 1.8rem;
@@ -60,10 +61,5 @@ import { SITE_TITLE } from "../consts";
   .internal-links {
     display: flex;
     gap: 1rem;
-  }
-  @media (max-width: 720px) {
-    .social-links {
-      display: none;
-    }
   }
 </style>
