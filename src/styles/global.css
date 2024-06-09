@@ -10,7 +10,7 @@ html {
   --text: #0f1219;
   --code-block: #bfc2c9;
   --code: #222939;
-  --secondary: #566e96;
+  --secondary: #96aacc;
 }
 
 html.dark {
@@ -39,6 +39,7 @@ html.dark {
 html {
   display: flex;
   justify-content: center;
+  overflow-y: scroll;
 }
 body {
   max-width: 720px;

@@ -1,51 +1,92 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+  .slice(0, 8);
 ---
 
 <BaseLayout>
   <main>
-    <h1>My Astro Site 🚀</h1>
-    <p>
-      Welcome to the official <a href="https://astro.build/">Astro</a> blog starter
-      template. This template serves as a lightweight, minimally-styled starting
-      point for anyone looking to build a personal website, blog, or portfolio with
-      Astro.
-    </p>
-    <p>
-      This template comes with a few integrations already configured in your
-      <code>astro.config.mjs</code> file. You can customize your setup with
-      <a href="https://astro.build/integrations">Astro Integrations</a> to add tools
-      like Tailwind, React, or Vue to your project.
-    </p>
-    <p>Here are a few ideas on how to get started with the template:</p>
-    <ul>
-      <li>Edit this page in <code>src/pages/index.astro</code></li>
-      <li>
-        Edit the site header items in <code>src/components/Header.astro</code>
-      </li>
-      <li>
-        Add your name to the footer in <code>src/components/Footer.astro</code>
-      </li>
-      <li>
-        Check out the included blog posts in <code>src/content/blog/</code>
-      </li>
-      <li>
-        Customize the blog post page layout in <code
-          >src/layouts/BlogPost.astro</code
-        >
-      </li>
-    </ul>
-    <p>
-      Have fun! If you get stuck, remember to <a
-        href="https://docs.astro.build/"
-        >read the docs
-      </a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-    </p>
-    <p>
-      Looking for a blog template with a bit more personality? Check out <a
-        href="https://github.com/Charca/astro-blog-template"
-        >astro-blog-template
-      </a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-    </p>
+    <section class="intro">
+      <h1>I Make Stuff 🏗️</h1>
+      <div class="subtitle">
+        <p>Because I can</p>
+        <hr />
+      </div>
+      <p>
+        Hello, I'm Ricky, and this is my personal site and blog. This is where I
+        store all my blog posts and projects.
+      </p>
+      <a href="/about">→ More on About me</a>
+    </section>
+    <section class="list posts">
+      <h2>Latest Blog Posts</h2>
+      <ul>
+        {
+          posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.slug}/`}>
+                {post.data.title}
+                <span class="date">
+                  [<FormattedDate date={post.data.pubDate} />]
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a href="/blog" class="see_more">→ See all posts</a>
+    </section>
   </main>
 </BaseLayout>
+
+<style>
+  main {
+    margin-bottom: 20vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+  }
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+  .subtitle,
+  .subtitle p {
+    padding-left: 1px;
+    margin: 0;
+  }
+  hr {
+    margin-top: 0;
+    margin-bottom: 3rem;
+  }
+
+  .list h2 {
+    font-size: 2.4rem;
+  }
+  .list a p {
+    display: inline-block;
+    margin: 0;
+  }
+  .list li a {
+    text-decoration: none;
+  }
+  .list li a:hover {
+    text-decoration: underline;
+  }
+  .list .date {
+    margin: 0;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  .see_more {
+    margin-left: 1.2rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .see_more:hover {
+    text-decoration: underline;
+  }
+</style>
