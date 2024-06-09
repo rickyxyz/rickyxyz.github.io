@@ -10,16 +10,16 @@ html {
   --text: #0f1219;
   --code-block: #bfc2c9;
   --code: #222939;
-  --secondary: #60739f;
+  --secondary: #566e96;
 }
 
 html.dark {
   --accent: #b03e00;
   --background: #0f1219;
-  --text: #e5e9f0;
+  --text: #bcc4d0;
   --code-block: #bfc2c9;
   --code: #222939;
-  --secondary: #60739f;
+  --secondary: #526389;
 }
 
 @font-face {
@@ -44,7 +44,6 @@ body {
   max-width: 720px;
   font-family: "Atkinson", sans-serif;
   margin: 0;
-  padding: 0;
   text-align: left;
   background: var(--background);
   word-wrap: break-word;
@@ -64,7 +63,7 @@ h4,
 h5,
 h6 {
   margin: 0 0 0.5rem 0;
-  color: rgb(var(--text));
+  color: var(--text);
   line-height: 1.2;
 }
 h1 {
@@ -89,24 +88,11 @@ b {
 a {
   color: var(--accent);
 }
-a:hover {
-  color: var(--accent);
-}
 p {
-  margin-bottom: 1em;
+  margin-bottom: 1.3rem;
 }
 .prose p {
-  margin-bottom: 2em;
-}
-textarea {
-  width: 100%;
-  font-size: 16px;
-}
-input {
-  font-size: 16px;
-}
-table {
-  width: 100%;
+  margin-bottom: 2.6rem;
 }
 img {
   max-width: 100%;
