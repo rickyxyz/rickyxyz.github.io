@@ -17,10 +17,8 @@ const posts = (await getCollection("blog")).sort(
             <li>
               <a href={`/blog/${post.slug}/`}>
                 <img
-                  width={720}
-                  height={360}
                   src={post.data.heroImage}
-                  alt=""
+                  alt={post.data.title + " thumbnail"}
                 />
                 <h4 class="title">{post.data.title}</h4>
                 <p class="date">
@@ -87,7 +85,7 @@ const posts = (await getCollection("blog")).sort(
   }
   @media (max-width: 720px) {
     ul {
-      gap: 0.5em;
+      gap: 1.8rem;
     }
     ul li {
       width: 100%;

@@ -2,6 +2,7 @@
 title: "Migrating To Astro"
 description: 'Building my personal website using Astro.'
 pubDate: 'Jun 12 2024'
+heroImage: '/blog-placeholder-2.jpg'
 ---
 
 This is the first blog post on this website 🎉.
