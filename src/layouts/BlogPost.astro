@@ -12,6 +12,21 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      type="text/partytown"
+      is:inline
+      src="https://www.googletagmanager.com/gtag/js?id=G-832C1JQ2T7"></script>
+    <script type="text/partytown" is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-832C1JQ2T7");
+    </script>
+
     <BaseHead title={title} description={description} />
     <style>
       .hero-image {
@@ -98,8 +113,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       };
 
       let giscusScript = document.createElement("script");
-      Object.entries(giscusAttributes).forEach(([key, value]) =>
-        value && giscusScript.setAttribute(key, value),
+      Object.entries(giscusAttributes).forEach(
+        ([key, value]) => value && giscusScript.setAttribute(key, value),
       );
       document.body.appendChild(giscusScript);
     </script>
