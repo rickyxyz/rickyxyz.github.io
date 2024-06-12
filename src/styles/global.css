@@ -4,6 +4,10 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+:root {
+  font-size: 18px;
+}
+
 html {
   --accent: #e35000;
   --background: #e5e9f0;
@@ -50,8 +54,7 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   color: var(--text);
-  font-size: 20px;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 main {
   margin: auto;
@@ -93,7 +96,7 @@ p {
   margin-bottom: 1.3rem;
 }
 .prose p {
-  margin-bottom: 2.6rem;
+  margin-bottom: 2.2rem;
 }
 img {
   max-width: 100%;
