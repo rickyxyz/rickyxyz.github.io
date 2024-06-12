@@ -77,26 +77,31 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       <section class="giscus"></section>
     </main>
     <Footer />
+    <script>
+      let theme = localStorage.getItem("theme");
+      let giscusAttributes = {
+        src: "https://giscus.app/client.js",
+        "data-repo": "rickyxyz/rickyxyz.github.io",
+        "data-repo-id": "R_kgDOK2JMYA",
+        "data-category": "Blog Post Comment",
+        "data-category-id": "DIC_kwDOK2JMYM4CgCJL",
+        "data-mapping": "url",
+        "data-strict": "0",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": theme,
+        "data-lang": "en",
+        crossorigin: "anonymous",
+        "data-loading": "lazy",
+        async: "",
+      };
+
+      let giscusScript = document.createElement("script");
+      Object.entries(giscusAttributes).forEach(([key, value]) =>
+        giscusScript.setAttribute(key, value),
+      );
+      document.body.appendChild(giscusScript);
+    </script>
   </body>
-  <script src="https://giscus.app/client.js"
-        data-repo="rickyxyz/rickyxyz.github.io"
-        data-repo-id="R_kgDOK2JMYA"
-        data-category="Blog Post Comment"
-        data-category-id="DIC_kwDOK2JMYM4CgCJL"
-        data-mapping="url"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="light"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
-<script>
-const iframe = document.querySelector('iframe.giscus-frame'); //get the iframe of giscus
-if (!iframe) return;
-iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: localStorage.theme } } }, 'https://giscus.app');
-</script>
 </html>
