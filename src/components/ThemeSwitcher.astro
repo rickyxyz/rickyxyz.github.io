@@ -62,6 +62,10 @@
 
     const isDark = element.classList.contains("dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");
+
+    const iframe = document.querySelector('iframe.giscus-frame'); 
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: localStorage.theme } } }, 'https://giscus.app');
   };
 
   document
