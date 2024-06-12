@@ -10,7 +10,7 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), partytown({
     config: {
       debug: false,
-      forward: ['dataLayer.push']
+      forward: ['dataLayer.push', 'gtag']
     }
   })]
 });
