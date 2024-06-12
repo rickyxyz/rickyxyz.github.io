@@ -1,0 +1,154 @@
+/*
+  The CSS in this style tag is based off of Bear Blog's default CSS.
+  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
+  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ */
+
+:root {
+  font-size: 18px;
+}
+
+html {
+  --accent: #e35000;
+  --background: #e5e9f0;
+  --text: #0f1219;
+  --code-block: #bfc2c9;
+  --code: #222939;
+  --secondary: #96aacc;
+}
+
+html.dark {
+  --accent: #b03e00;
+  --background: #0f1219;
+  --text: #bcc4d0;
+  --code-block: #bfc2c9;
+  --code: #222939;
+  --secondary: #526389;
+}
+
+@font-face {
+  font-family: "Atkinson";
+  src: url("/fonts/atkinson-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson";
+  src: url("/fonts/atkinson-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+html {
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+}
+body {
+  max-width: 720px;
+  font-family: "Atkinson", sans-serif;
+  margin: 0;
+  text-align: left;
+  background: var(--background);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: var(--text);
+  line-height: 1.6;
+}
+main {
+  margin: auto;
+  padding: 2rem 1rem;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text);
+  line-height: 1.2;
+}
+h1 {
+  font-size: 4rem;
+}
+h2 {
+  font-size: 3rem;
+}
+h3 {
+  font-size: 2.4rem;
+}
+h4 {
+  font-size: 1.8rem;
+}
+h5 {
+  font-size: 1.4rem;
+}
+strong,
+b {
+  font-weight: 700;
+}
+a {
+  color: var(--accent);
+}
+p {
+  margin-bottom: 1.3rem;
+}
+.prose p {
+  margin-bottom: 2.2rem;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+code {
+  padding: 2px 5px;
+  background-color: var(--code-block);
+  color: var(--code);
+  border-radius: 2px;
+}
+pre {
+  font-size: 1rem;
+  padding: 1.25rem;
+  border-radius: 8px;
+}
+pre > code {
+  all: unset;
+}
+blockquote {
+  border-left: 4px solid var(--accent);
+  padding: 0 0 0 20px;
+  margin: 0px;
+}
+hr {
+  border: none;
+  border-top: 1px solid var(--secondary);
+}
+@media (max-width: 720px) {
+  body {
+    font-size: 18px;
+  }
+  main {
+    padding: 1em;
+  }
+}
+
+.sr-only {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+  clip: rect(1px 1px 1px 1px);
+  /* maybe deprecated but we need to support legacy browsers */
+  clip: rect(1px, 1px, 1px, 1px);
+  /* modern browsers, clip-path works inwards from each corner */
+  clip-path: inset(50%);
+  /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+  white-space: nowrap;
+}
