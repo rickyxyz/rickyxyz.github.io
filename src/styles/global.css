@@ -117,7 +117,9 @@ img {
   border-radius: 8px;
 }
 code {
-  padding: 2px 5px;
+  font-size: 0.9rem;
+  padding: 2px 4px;
+  margin-right: 2px;
   background-color: var(--code-block);
   color: var(--code);
   border-radius: 2px;
