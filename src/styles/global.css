@@ -96,7 +96,20 @@ p {
   margin-bottom: 1.3rem;
 }
 .prose p {
-  margin-bottom: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+.prose ul,
+.prose ol {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  margin-top: 2.5rem;
 }
 img {
   max-width: 100%;
@@ -104,15 +117,19 @@ img {
   border-radius: 8px;
 }
 code {
-  padding: 2px 5px;
+  font-size: 0.9rem;
+  padding: 2px 4px;
+  margin-right: 2px;
   background-color: var(--code-block);
   color: var(--code);
   border-radius: 2px;
 }
 pre {
-  font-size: 1rem;
-  padding: 1.25rem;
+  font-size: 0.9rem;
+  padding: 1.2rem;
   border-radius: 8px;
+  margin-bottom: 2rem;
+  position: relative;
 }
 pre > code {
   all: unset;
