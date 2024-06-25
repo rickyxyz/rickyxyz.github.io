@@ -1,12 +1,12 @@
 {
     "title": "Circle Circle",
     "description": "A Reddit clone, developed using test driven development, ReactJS, Firebase",
-    "pubDate": "Jan 1 2020",
+    "pubDate": "Jan 1 2024",
     "carouselImages": [
         "/circle-circle/browsepage.webp",
         "/circle-circle/circlepage.webp",
         "/circle-circle/icecreampost.webp"
     ],
-    "githubLink": "https://github.com/rickyxyz/frontendmentor-projects",
-    "liveLink": "https://rickyxyz.dev/frontendmentor-projects/"
+    "githubLink": "https://github.com/rickyxyz/circle-circle/",
+    "liveLink": "https://circle-circle.vercel.app/"
 }

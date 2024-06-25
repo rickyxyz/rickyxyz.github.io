@@ -20,6 +20,7 @@ const project = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     carouselImages: z.array(z.string()),
+    sizeCover: z.optional(z.boolean()),
     githubLink: z.string(),
     liveLink: z.string(),
   }),

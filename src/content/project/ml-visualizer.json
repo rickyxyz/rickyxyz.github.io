@@ -1,0 +1,12 @@
+{
+    "title": "Machine Learning Visualizer",
+    "description": "A Reddit clone, developed using test driven development, ReactJS, Firebase",
+    "pubDate": "Jan 1 2021",
+    "carouselImages": [
+        "/ml-visualizer/knn.webp",
+        "/ml-visualizer/lr.webp",
+        "/ml-visualizer/empty.webp"
+    ],
+    "githubLink": "https://github.com/rickyxyz/ML-Visualizer-Public/tree/gh-pages",
+    "liveLink": "https://rickyxyz.dev/ML-Visualizer-Public/"
+}

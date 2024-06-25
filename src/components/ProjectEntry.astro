@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import ImageCarousel from "../components/ImageCarousel.astro";
+// import ImageCarousel from "./ImageCarousel";
+import Carousel from "./carousel/Carousel";
 
 interface Props {
   project: CollectionEntry<"project">;
@@ -10,11 +11,16 @@ const { project } = Astro.props;
 ---
 
 <div class:list={["project-item"]}>
-  <ImageCarousel images={project.data.carouselImages} id={project.id} />
   <h3>{project.data.title} ({project.data.pubDate.getFullYear()})</h3>
+  <Carousel
+    client:load
+    id={project.id}
+    images={project.data.carouselImages}
+    cover={project.data.sizeCover}
+  />
   <p>{project.data.description}</p>
   <span class="links">
-    <a href={project.data.githubLink}>
+    <a href={project.data.githubLink} target="_blank">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="ionicon"
@@ -26,7 +32,7 @@ const { project } = Astro.props;
       >
       <span>Visit Code</span>
     </a>
-    <a href={project.data.liveLink}
+    <a href={project.data.liveLink} target="_blank"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         class="ionicon"
@@ -61,12 +67,15 @@ const { project } = Astro.props;
 
 <style>
   .project-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
     margin-left: 1.2rem;
+    margin-bottom: 3.5rem;
   }
 
   .project-item p {
-    margin: 0;
-    margin-bottom: 1.2rem;
+    margin: 0.4rem 0;
   }
 
   .project-item h3 {
