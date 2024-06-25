@@ -1,0 +1,13 @@
+{
+    "title": "Frontendmentor Solutions",
+    "description": "A collection of design implementation using HTML, CSS, JS, SCSS, ReactJS",
+    "pubDate": "Jan 1 2020",
+    "carouselImages": [
+        "https://rickyxyz.dev/frontendmentor-projects/images/junior_09.png",
+        "https://rickyxyz.dev/frontendmentor-projects/images/junior_03.png",
+        "https://rickyxyz.dev/frontendmentor-projects/images/newbie_07.jpg",
+        "https://raw.githubusercontent.com/rickyxyz/frontendmentor-projects/main/react/interactive-card-details-form-main/screenshots/desktop.png"
+    ],
+    "githubLink": "https://github.com/rickyxyz/frontendmentor-projects",
+    "liveLink": "https://rickyxyz.dev/frontendmentor-projects/"
+}

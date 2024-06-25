@@ -1,11 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import ProjectEntry from "../components/ProjectEntry.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
   .slice(0, 8);
+
+const projects = (await getCollection("project"))
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+  .slice(0, 4);
 ---
 
 <BaseLayout>
@@ -21,6 +26,11 @@ const posts = (await getCollection("blog"))
         store all my blog posts.
       </p>
       <a href="/about">→ More on About me</a>
+    </section>
+    <section class="gallery projects">
+      <h2>My Projects</h2>
+      {projects.map((project) => <ProjectEntry project={project} />)}
+      <!-- <a href="/project" class="see_more">→ See all projects</a> -->
     </section>
     <section class="list posts">
       <h2>Latest Blog Posts</h2>
@@ -63,9 +73,6 @@ const posts = (await getCollection("blog"))
     margin-bottom: 3rem;
   }
 
-  .list h2 {
-    font-size: 2.4rem;
-  }
   .list a p {
     display: inline-block;
     margin: 0;
@@ -84,9 +91,20 @@ const posts = (await getCollection("blog"))
   .see_more {
     margin-left: 1.2rem;
     color: var(--text);
-    text-decoration: none;
-  }
-  .see_more:hover {
     text-decoration: underline;
+  }
+
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .projects h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .projects a {
+    margin-top: 1.5rem;
   }
 </style>
