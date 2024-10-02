@@ -69,6 +69,16 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       article {
         margin-bottom: 4rem;
       }
+      @media (max-width: 720px) {
+        .title {
+          margin-bottom: 1rem;
+          padding: 0.5rem 0;
+          line-height: 1;
+        }
+        article {
+          margin-bottom: 2rem;
+        }
+      }
     </style>
   </head>
 

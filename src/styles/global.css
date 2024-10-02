@@ -175,12 +175,41 @@ hr {
 
 @media (max-width: 720px) {
   body {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   main {
     min-height: calc(100vh - 18rem);
     padding: 1em;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+  }
+
+  h4 {
+    font-size: 1.3rem;
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    margin-top: 1.2rem;
   }
 }
 

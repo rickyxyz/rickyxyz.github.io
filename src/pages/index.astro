@@ -57,10 +57,6 @@ const posts = (await getCollection("blog"))
     padding-left: 1px;
     margin: 0;
   }
-  hr {
-    margin-top: 0;
-    margin-bottom: 3rem;
-  }
   .list a p {
     display: inline-block;
     margin: 0;
@@ -75,5 +71,12 @@ const posts = (await getCollection("blog"))
   }
   .see_more {
     margin-left: 1.2rem;
+  }
+  
+  @media (max-width: 720px) {
+    main {
+      margin-bottom: 2rem;
+      gap: 2rem;
+    }
   }
 </style>
