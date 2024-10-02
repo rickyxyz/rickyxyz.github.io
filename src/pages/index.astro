@@ -20,7 +20,6 @@ const posts = (await getCollection("blog"))
         Hello, I'm Ricky, and this is my personal blog. This is where I
         store all my blog posts.
       </p>
-      <a href="/about">→ More on About me</a>
     </section>
     <section class="list posts">
       <h2>Latest Blog Posts</h2>
@@ -66,20 +65,15 @@ const posts = (await getCollection("blog"))
     display: inline-block;
     margin: 0;
   }
-  .list li a {
-    text-decoration: none;
-  }
-  .list li a:hover {
-    text-decoration: underline;
-  }
   .list .date {
     margin: 0;
-    color: var(--text);
+    color: var(--accent);
     font-size: 1rem;
+  }
+  .list .date:hover {
+    color: var(--accent);
   }
   .see_more {
     margin-left: 1.2rem;
-    color: var(--text);
-    text-decoration: underline;
   }
 </style>

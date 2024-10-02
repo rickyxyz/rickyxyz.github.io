@@ -10,7 +10,7 @@
 
 html {
   --accent: #e35000;
-  --background: #e5e9f0;
+  --background: #eef1f6;
   --text: #0f1219;
   --code-block: #bfc2c9;
   --code: #222939;
@@ -105,6 +105,11 @@ b {
 
 a {
   color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 p {

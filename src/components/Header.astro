@@ -7,12 +7,14 @@ import { SITE_TITLE } from "../consts";
 <header>
   <nav>
     <a href="/">
-      <img src="/favicon.svg" role="presentation" height="16px" width="16px" style="margin-right: 0.25rem;"><h2>{SITE_TITLE}</h2>
+      <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation" height="18px" width="18px" style="margin-right: 0.25rem;">
+        <rect x="101" y="32" width="150" height="150" transform="rotate(30 101 32)" fill="var(--accent)" id="logo_rect"/>
+      </svg>
+      <h2>{SITE_TITLE}</h2>
     </a>
     <div class="internal-links">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/blog">Blog</HeaderLink>
-      <!-- <HeaderLink href="/about">About</HeaderLink> -->
     </div>
   </nav>
   <div class="separator"></div>
