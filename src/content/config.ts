@@ -13,17 +13,4 @@ const blog = defineCollection({
   }),
 });
 
-const project = defineCollection({
-  type: "data",
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.coerce.date(),
-    carouselImages: z.array(z.string()),
-    sizeCover: z.optional(z.boolean()),
-    githubLink: z.string(),
-    liveLink: z.string(),
-  }),
-});
-
-export const collections = { blog, project };
+export const collections = { blog };

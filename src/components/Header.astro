@@ -6,11 +6,13 @@ import { SITE_TITLE } from "../consts";
 
 <header>
   <nav>
-    <h2><a href="/">{SITE_TITLE}</a></h2>
+    <a href="/">
+      <img src="favicon.svg" role="presentation" height="16px" width="16px" style="margin-right: 0.25rem;"><h2>{SITE_TITLE}</h2>
+    </a>
     <div class="internal-links">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/blog">Blog</HeaderLink>
-      <HeaderLink href="/about">About</HeaderLink>
+      <!-- <HeaderLink href="/about">About</HeaderLink> -->
     </div>
   </nav>
   <div class="separator"></div>
@@ -31,6 +33,7 @@ import { SITE_TITLE } from "../consts";
     background: var(--secondary);
   }
   h2 {
+    display: inline-block;
     margin: 0;
     font-size: 1.5rem;
     color: var(--gray);
@@ -67,6 +70,7 @@ import { SITE_TITLE } from "../consts";
       grid-template-rows: repeat(2, 2rem);
       grid-template-columns: auto 1px 30px;
       gap: 1.1rem;
+      margin-bottom: 1rem;
     }
 
     .separator {

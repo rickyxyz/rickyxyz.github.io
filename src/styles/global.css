@@ -5,7 +5,7 @@
  */
 
 :root {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 html {
@@ -33,6 +33,7 @@ html.dark {
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Atkinson";
   src: url("/fonts/atkinson-bold.woff") format("woff");
@@ -40,13 +41,17 @@ html.dark {
   font-style: normal;
   font-display: swap;
 }
+
 html {
   display: flex;
   justify-content: center;
   overflow-y: scroll;
 }
+
 body {
+  min-height: 100vh;
   max-width: 720px;
+  width: 100%;
   font-family: "Atkinson", sans-serif;
   margin: 0;
   text-align: left;
@@ -56,10 +61,12 @@ body {
   color: var(--text);
   line-height: 1.6;
 }
+
 main {
-  margin: auto;
   padding: 2rem 1rem;
+  min-height: calc(100vh - 18rem);
 }
+
 h1,
 h2,
 h3,
@@ -70,39 +77,50 @@ h6 {
   color: var(--text);
   line-height: 1.2;
 }
+
 h1 {
-  font-size: 4rem;
+  font-size: 3.4rem;
 }
+
 h2 {
-  font-size: 3rem;
+  font-size: 2.8rem;
 }
+
 h3 {
   font-size: 2.4rem;
 }
+
 h4 {
   font-size: 1.8rem;
 }
+
 h5 {
   font-size: 1.4rem;
 }
+
 strong,
 b {
   font-weight: 700;
 }
+
 a {
   color: var(--accent);
 }
+
 p {
   margin-bottom: 1.3rem;
 }
+
 .prose p {
   margin-bottom: 0.5rem;
 }
+
 .prose ul,
 .prose ol {
   margin-top: 0;
   margin-bottom: 1.5rem;
 }
+
 .prose h1,
 .prose h2,
 .prose h3,
@@ -111,11 +129,13 @@ p {
 .prose h6 {
   margin-top: 2.5rem;
 }
+
 img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
 }
+
 code {
   font-size: 0.9rem;
   padding: 2px 4px;
@@ -124,6 +144,7 @@ code {
   color: var(--code);
   border-radius: 2px;
 }
+
 pre {
   font-size: 0.9rem;
   padding: 1.2rem;
@@ -131,23 +152,29 @@ pre {
   margin-bottom: 2rem;
   position: relative;
 }
-pre > code {
+
+pre>code {
   all: unset;
 }
+
 blockquote {
   border-left: 4px solid var(--accent);
   padding: 0 0 0 20px;
   margin: 0px;
 }
+
 hr {
   border: none;
   border-top: 1px solid var(--secondary);
 }
+
 @media (max-width: 720px) {
   body {
-    font-size: 18px;
+    font-size: 16px;
   }
+
   main {
+    min-height: calc(100vh - 18rem);
     padding: 1em;
   }
 }
