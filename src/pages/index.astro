@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import ProjectEntry from "../components/ProjectEntry.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog"))
