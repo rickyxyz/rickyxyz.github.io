@@ -2,7 +2,7 @@
 title: "Sending and Receiving Emails From SES Using Gmail"
 description: "A guide on how to setup email sending and receiving on AWS SES and sending and receiving them on Gmail"
 pubDate: "Oct 25 2024"
-heroImage: "/public/post-2/post-thumbnail.svg"
+heroImage: "/post-2/post-thumbnail.svg"
 ---
 
 Recently, I got interested in email services. You know those emails with a custom domain like "john@github.com", yeah I want to get one of those for my domain ([rickyxyz.dev](https://rickyxyz.dev)). I know there are services like [Google Workspace](https://workspace.google.com) or [Zoho Mail](https://www.zoho.com) that allows you to use a custom domain for your email address, but I am a techie, of course I can't just the simple solution and I need to engineer one myself. So, I tried to connect [AWS SES](https://aws.amazon.com/ses/) with my Gmail client.
@@ -38,31 +38,31 @@ AWS SES can only send an email from domain that is registered and verified in th
 
    In the AWS SES dashboard, go to the 'identities' tab and create a new identity.
 
-   ![AWS SES identities dashboard](/public/post-2/aws-ses-identities-dashboard.webp)
+   ![AWS SES identities dashboard](/post-2/aws-ses-identities-dashboard.webp)
 
    Input your domain name, and check the custom MAIL FROM domain and input a your subdomain.
 
-   ![AWS SES domain registration](/public/post-2/aws-ses-identities-register-domain-zoomed.webp)
+   ![AWS SES domain registration](/post-2/aws-ses-identities-register-domain-zoomed.webp)
 
    If your domain is registered with AWS Route53, you should probably check the publish DNS records to Route53 to let AWS update the domain record automatically. I skipped the advanced DKIM settings and the tags information. Afterward you should be taken to this screen.
 
-   ![AWS SES domain verification](/public/post-2/aws-ses-domain-verification.webp)
+   ![AWS SES domain verification](/post-2/aws-ses-domain-verification.webp)
 
 2. Updating your DNS record
    From the previous screen, scroll down and you will find the DNS record you need to put to your domain's DNS configuration. My domain is registered with Cloudflare, but as long as you have access to change the DNS record, any domain registrars should work. You will need to add 3 groups of DNS record to your DNS record: [DKIM](https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail) records, [MAIL FROM](https://docs.aws.amazon.com/ses/latest/dg/mail-from.html) record, and [DMARC](https://en.wikipedia.org/wiki/DMARC) record. I am going to assume you won't have any problem with adding the DNS record to your domain, but here is the [AWS Guide](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#just-verify-domain-proc) if you need it.
 
    The only thing you might need to watch out for is probably the MX record value. You see the '10' in the MX record value, that is not part of the value but the MX record priority;
 
-   ![AWS SES MAIL FROM DNS records](/public/post-2/aws-ses-domain-verification-mx-record.webp)
+   ![AWS SES MAIL FROM DNS records](/post-2/aws-ses-domain-verification-mx-record.webp)
 
    Make sure you do not insert the '10' into the record value, but insert it into the MX record priority like so.
 
-   ![Cloudflare AWS SES MX record priority](/public/post-2/cloudflare-aws-ses-mx-record-priority.webp)
+   ![Cloudflare AWS SES MX record priority](/post-2/cloudflare-aws-ses-mx-record-priority.webp)
 
 3. Check back to AWS SES
    After you updated your DNS records, give it a while and check back to AWS SES, if everything went alright you should see identity status verified.
 
-   ![AWS SES domain identity verification success](/public/post-2/aws-ses-domain-verification-success.webp)
+   ![AWS SES domain identity verification success](/post-2/aws-ses-domain-verification-success.webp)
 
 ## Setup Email Receiving
 
@@ -76,30 +76,30 @@ Your domain is now registered with AWS SES, but you cannot receive or send email
 
    You can find the region value from the region selector on the top bar in AWS.
 
-   ![AWS region selector](/public/post-2/aws-ses-region-list.webp)
+   ![AWS region selector](/post-2/aws-ses-region-list.webp)
 
    replace the region with your AWS SES region, and you're supposed to set the priority to 10, but I set it to 20 to avoid possible conflict with the other MX record.
    So in my case it looks like this in Cloudflare.
 
-   ![Cloudflare email receiving DNS record](/public/post-2/cloudflare-aws-ses-receiving-email.webp)
+   ![Cloudflare email receiving DNS record](/post-2/cloudflare-aws-ses-receiving-email.webp)
 
 2. Receive and store email to S3 bucket
 
    Open the Email Receiving dashboard on SES and create a new rule set. Name it something you will understand when you read it later.
 
-   ![AWS Email Receiving dashboard](/public/post-2/aws-ses-email-receiving-dashboard.webp)
+   ![AWS Email Receiving dashboard](/post-2/aws-ses-email-receiving-dashboard.webp)
 
    In the rule set create a new rule, and name it clearly. The TLS and virus scan options are up to you. Then fill the recipient conditions with the address you want SES to handle for you. For example if you want to send every email addressed to "admin@yourdomain.com" to an S3 bucket, you would add "admin@yourdomain.com" to the recipient conditions. In the next step add a new action to deliver to S3 bucket, and pick an S3 bucket or create a new one. For now disable the message encryption.
 
-   ![AWS receiving rule definition](/public/post-2/aws-ses-receive-rule-definition.webp)
+   ![AWS receiving rule definition](/post-2/aws-ses-receive-rule-definition.webp)
 
-   ![AWS receiving rule recipient condition ](/public/post-2/aws-ses-receive-rule-recipient.webp)
+   ![AWS receiving rule recipient condition ](/post-2/aws-ses-receive-rule-recipient.webp)
 
-   ![AWS receiving rule action to s3](/public/post-2/aws-ses-receive-rule-send-to-s3.webp)
+   ![AWS receiving rule action to s3](/post-2/aws-ses-receive-rule-send-to-s3.webp)
 
    Finish the rule creation and make sure the ruleset is enabled.
 
-   ![AWS reeciving ruleset active](/public/post-2/aws-ses-active-ruleset.webp)
+   ![AWS reeciving ruleset active](/post-2/aws-ses-active-ruleset.webp)
 
 3. Test the receiving setup
 
@@ -115,7 +115,7 @@ Now that AWS SES can store your email to S3 bucket, the next step is to forward 
    For the function body, I used a slightly modified code from [AWS Lambda SES Forwarder by Joe Turgeon](https://github.com/arithmetric/aws-lambda-ses-forwarder).
    To make the code works with Node 20.x, change the Lambda file extension from 'index.mjs' to 'index.js',
 
-   ![AWS Lambda rename index file](/public/post-2/aws-lambda-rename-index.webp)
+   ![AWS Lambda rename index file](/post-2/aws-lambda-rename-index.webp)
 
    The code I used is in this [GitHub Gist link](https://gist.github.com/rickyxyz/85b60cf16404fd86e3a7169b78691427)
 
@@ -142,35 +142,35 @@ Now that AWS SES can store your email to S3 bucket, the next step is to forward 
 
    After setting up the Lambda function, you will need to allow that Lambda instance to access S3 to read the email data and access to SES to send raw email. Go to the configuration tab and go to the permission section. Click on the role name to get redirected to IAM.
 
-   ![Role name redirect](/public/post-2/aws-lambda-permission-link.webp)
+   ![Role name redirect](/post-2/aws-lambda-permission-link.webp)
 
    In the IAM create a new inline policy.
 
-   ![Create new inline policy](/public/post-2/aws-lambda-add-permission.webp)
+   ![Create new inline policy](/post-2/aws-lambda-add-permission.webp)
 
    There are two ways to create the policy, using a visual editor or a JSON editor. I am using the visual editor for this. First add S3 to the services and add persmission for 'GetObject' and 'PutObject'.
 
-   ![AWS IAM S3 permissions](/public/post-2/aws-permission-s3.webp)
+   ![AWS IAM S3 permissions](/post-2/aws-permission-s3.webp)
 
    Then for the resources, limit the access to only the specific S3 bucket that stores the incoming SES email, make sure there is a wildcard ('\*') to the end of the ARN string.
 
-   ![AWS S3 ARN permission](/public/post-2/aws-permission-s3-arn.webp)
+   ![AWS S3 ARN permission](/post-2/aws-permission-s3-arn.webp)
 
    Then add SES to the services list and add the 'SendRawEmail' permission,
 
-   ![AWS SES permission](/public/post-2/aws-permission-ses.webp)
+   ![AWS SES permission](/post-2/aws-permission-ses.webp)
 
    for the resources limit the access to your specific AWS SES identity.
 
    > You can find the ARN string for your SES identity in the Identities dashboard in SES
-   > ![SES ARN location](/public/post-2/aws-ses-identities-arn.webp)
+   > ![SES ARN location](/post-2/aws-ses-identities-arn.webp)
 
    Review and save your changes.
 
 3. Add Lambda invocation to the SES receiving rule action
    After creating the Lambda function and adding the necessary permission, go back to SES receiving rule and edit the existing rule to add an action to it. Add the Lambda function you just created, then save it.
 
-   ![AWS SES add invoke Lambda on receive](/public/post-2/aws-ses-receive-rule-definition.webp)
+   ![AWS SES add invoke Lambda on receive](/post-2/aws-ses-receive-rule-definition.webp)
 
    > At this point AWS may ask you to grant persmission for SES to access the Lambda resource
 
@@ -187,25 +187,25 @@ Now (hopefully) your SES instance could receive and forward emails to your Gmail
 
    Go to SMTP settings in your SES dashboard and create a new SMTP credentials. Again, name it something clear that you will understand later.
 
-   ![AWS SES SMTP dashboard](/public/post-2/aws-ses-smtp-dashboard.webp)
+   ![AWS SES SMTP dashboard](/post-2/aws-ses-smtp-dashboard.webp)
 
    Make sure to download the SMTP credential .csv file.
-   ![AWS SES new SMTP credential](/public/post-2/aws-ses-smtp-user-credential.webp)
+   ![AWS SES new SMTP credential](/post-2/aws-ses-smtp-user-credential.webp)
 
 2. Input your SMTP details to your Gmail client
 
    In Gmail web, go to settings and open up all settings and open the 'Accounts and Import' section.
 
-   ![Gmail Accounts and Import](/public/post-2/gmail-settings-add-new.webp)
+   ![Gmail Accounts and Import](/post-2/gmail-settings-add-new.webp)
 
    A new popup window will show up, in the popup window fill all fields needed.
    The email address, is the address where the email will be sent from.
 
-   ![Gmail new smtp account](/public/post-2/gmail-settings-new-email.webp)
+   ![Gmail new smtp account](/post-2/gmail-settings-new-email.webp)
 
    Then fill up the rest of the fields with details of your SMTP credentials.
 
-   ![Gmail new smtp credential](/public/post-2/gmail-settings-new-smtp.webp)
+   ![Gmail new smtp credential](/post-2/gmail-settings-new-smtp.webp)
 
 3. Verify your email
 
