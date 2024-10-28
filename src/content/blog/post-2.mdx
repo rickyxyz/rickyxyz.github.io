@@ -94,7 +94,7 @@ Your domain is now registered with AWS SES, but you cannot receive or send email
 
    Finish the rule creation and make sure the ruleset is enabled.
 
-   ![AWS reeciving ruleset active](../../assets/post-2/aws-ses-active-ruleset.webp)
+   ![AWS receiving ruleset active](../../assets/post-2/aws-ses-active-ruleset.webp)
 
 3. Test the receiving setup
 
@@ -107,14 +107,398 @@ Your domain is now registered with AWS SES, but you cannot receive or send email
 Now that AWS SES can store your email to S3 bucket, the next step is to forward that email to your Gmail address, so you can read emails sent to you in your Gmail.
 
 1. Go to AWS Lambda and create a new function using node 20.x or node 18.x
-   For the function body, I used a slightly modified code from [AWS Lambda SES Forwarder by Joe Turgeon](https://github.com/arithmetric/aws-lambda-ses-forwarder).
-   To make the code works with Node 20.x, change the Lambda file extension from 'index.mjs' to 'index.js',
+   To make the code works with Node 20.x, change the Lambda file extension from 'index.mjs' to 'index.js'.
 
    ![AWS Lambda rename index file](../../assets/post-2/aws-lambda-rename-index.webp)
 
-   The code I used is in this [GitHub Gist link](https://gist.github.com/rickyxyz/85b60cf16404fd86e3a7169b78691427)
+   For the function body, I used a slightly modified code from [AWS Lambda SES Forwarder by Joe Turgeon](https://github.com/arithmetric/aws-lambda-ses-forwarder).
 
-   <script src="https://gist.github.com/rickyxyz/85b60cf16404fd86e3a7169b78691427.js"></script>
+   The modified code I used can be found in this [GitHub Gist link](https://gist.github.com/rickyxyz/85b60cf16404fd86e3a7169b78691427)
+
+   <details>
+
+   <summary>
+     <b style="font-size:1.4rem;">Show AWS Lambda Code Here</b>
+   </summary>
+
+   ```js
+   // Original code by user https://github.com/arithmetric
+   // Original code https://github.com/arithmetric/aws-lambda-ses-forwarder/blob/master/index.js
+
+   "use strict";
+
+   // Import the required AWS SDK v3 clients and commands.
+   const { SESClient, SendRawEmailCommand } = require("@aws-sdk/client-ses");
+   const {
+     S3Client,
+     CopyObjectCommand,
+     GetObjectCommand,
+   } = require("@aws-sdk/client-s3");
+
+   console.log("AWS Lambda SES Forwarder // @arithmetric // Version 5.1.0");
+
+   // Configure the S3 bucket and key prefix for stored raw emails, and the
+   // mapping of email addresses to forward from and to.
+   //
+   // Expected keys/values:
+   //
+   // - fromEmail: Forwarded emails will come from this verified address
+   //
+   // - subjectPrefix: Forwarded emails subject will contain this prefix
+   //
+   // - emailBucket: S3 bucket name where SES stores emails.
+   //
+   // - emailKeyPrefix: S3 key name prefix where SES stores email. Include the
+   //   trailing slash.
+   //
+   // - allowPlusSign: Enables support for plus sign suffixes on email addresses.
+   //   If set to `true`, the username/mailbox part of an email address is parsed
+   //   to remove anything after a plus sign. For example, an email sent to
+   //   `example+test@example.com` would be treated as if it was sent to
+   //   `example@example.com`.
+   //
+   // - forwardMapping: Object where the key is the lowercase email address from
+   //   which to forward and the value is an array of email addresses to which to
+   //   send the message.
+   //
+   //   To match all email addresses on a domain, use a key without the name part
+   //   of an email address before the "at" symbol (i.e. `@example.com`).
+   //
+   //   To match a mailbox name on all domains, use a key without the "at" symbol
+   //   and domain part of an email address (i.e. `info`).
+   //
+   //   To match all email addresses matching no other mapping, use "@" as a key.
+   var defaultConfig = {
+     fromEmail: "noreply@example.com",
+     subjectPrefix: "",
+     emailBucket: "s3-bucket-name",
+     emailKeyPrefix: "emailsPrefix/",
+     allowPlusSign: true,
+     forwardMapping: {
+       "info@example.com": [
+         "example.john@example.com",
+         "example.jen@example.com",
+       ],
+       "abuse@example.com": ["example.jim@example.com"],
+       "@example.com": ["example.john@example.com"],
+       info: ["info@example.com"],
+     },
+   };
+
+   /**
+    * Parses the SES event record provided for the `mail` and `recipients` data.
+    *
+    * @param {object} data - Data bundle with context, email, etc.
+    *
+    * @return {object} - Promise resolved with data.
+    */
+   exports.parseEvent = async function (data) {
+     if (
+       !data.event ||
+       !data.event.Records ||
+       data.event.Records.length !== 1 ||
+       !data.event.Records[0].eventSource ||
+       data.event.Records[0].eventSource !== "aws:ses" ||
+       data.event.Records[0].eventVersion !== "1.0"
+     ) {
+       data.log({
+         message: "parseEvent() received invalid SES message:",
+         level: "error",
+         event: JSON.stringify(data.event),
+       });
+       throw new Error("Error: Received invalid SES message.");
+     }
+
+     data.email = data.event.Records[0].ses.mail;
+     data.recipients = data.event.Records[0].ses.receipt.recipients;
+     return data;
+   };
+
+   /**
+    * Transforms the original recipients to the desired forwarded destinations.
+    */
+   exports.transformRecipients = async function (data) {
+     let newRecipients = [];
+     data.originalRecipients = data.recipients;
+
+     data.recipients.forEach(function (origEmail) {
+       let origEmailKey = origEmail.toLowerCase();
+       if (data.config.allowPlusSign) {
+         origEmailKey = origEmailKey.replace(/\+.*?@/, "@");
+       }
+
+       if (data.config.forwardMapping.hasOwnProperty(origEmailKey)) {
+         newRecipients = newRecipients.concat(
+           data.config.forwardMapping[origEmailKey]
+         );
+         data.originalRecipient = origEmail;
+       } else {
+         let origEmailDomain, origEmailUser;
+         let pos = origEmailKey.lastIndexOf("@");
+         if (pos === -1) {
+           origEmailUser = origEmailKey;
+         } else {
+           origEmailDomain = origEmailKey.slice(pos);
+           origEmailUser = origEmailKey.slice(0, pos);
+         }
+
+         if (
+           origEmailDomain &&
+           data.config.forwardMapping.hasOwnProperty(origEmailDomain)
+         ) {
+           newRecipients = newRecipients.concat(
+             data.config.forwardMapping[origEmailDomain]
+           );
+           data.originalRecipient = origEmail;
+         } else if (
+           origEmailUser &&
+           data.config.forwardMapping.hasOwnProperty(origEmailUser)
+         ) {
+           newRecipients = newRecipients.concat(
+             data.config.forwardMapping[origEmailUser]
+           );
+           data.originalRecipient = origEmail;
+         } else if (data.config.forwardMapping.hasOwnProperty("@")) {
+           newRecipients = newRecipients.concat(
+             data.config.forwardMapping["@"]
+           );
+           data.originalRecipient = origEmail;
+         }
+       }
+     });
+
+     if (!newRecipients.length) {
+       data.log({
+         message:
+           "Finishing process. No new recipients found for " +
+           "original destinations: " +
+           data.originalRecipients.join(", "),
+         level: "info",
+       });
+       return data.callback();
+     }
+
+     data.recipients = newRecipients;
+     return data;
+   };
+
+   /**
+    * Fetches the message data from S3.
+    */
+   exports.fetchMessage = async function (data) {
+     data.log({
+       level: "info",
+       message:
+         "Fetching email at s3://" +
+         data.config.emailBucket +
+         "/" +
+         data.config.emailKeyPrefix +
+         data.email.messageId,
+     });
+
+     const s3Client = new S3Client();
+
+     try {
+       await s3Client.send(
+         new CopyObjectCommand({
+           Bucket: data.config.emailBucket,
+           CopySource:
+             data.config.emailBucket +
+             "/" +
+             data.config.emailKeyPrefix +
+             data.email.messageId,
+           Key: data.config.emailKeyPrefix + data.email.messageId,
+           ACL: "private",
+           ContentType: "text/plain",
+           StorageClass: "STANDARD",
+         })
+       );
+
+       const result = await s3Client.send(
+         new GetObjectCommand({
+           Bucket: data.config.emailBucket,
+           Key: data.config.emailKeyPrefix + data.email.messageId,
+         })
+       );
+
+       const streamToString = (stream) => {
+         return new Promise((resolve, reject) => {
+           const chunks = [];
+           stream.on("data", (chunk) => chunks.push(chunk));
+           stream.on("error", reject);
+           stream.on("end", () =>
+             resolve(Buffer.concat(chunks).toString("utf-8"))
+           );
+         });
+       };
+
+       data.emailData = await streamToString(result.Body);
+     } catch (err) {
+       data.log({
+         level: "error",
+         message: "getObject() returned error:",
+         error: err,
+         stack: err.stack,
+       });
+       throw new Error("Error: Failed to load message body from S3.");
+     }
+
+     return data;
+   };
+
+   /**
+    * Processes the message data, making updates to recipients and other headers before forwarding.
+    */
+   exports.processMessage = async function (data) {
+     const match = data.emailData.match(/^((?:.+\r?\n)*)(\r?\n(?:.*\s+)*)/m);
+     let header = match && match[1] ? match[1] : data.emailData;
+     const body = match && match[2] ? match[2] : "";
+
+     // Add "Reply-To:" with the "From" address if it doesn't already exist
+     if (!/^reply-to:[\t ]?/im.test(header)) {
+       const fromMatch = header.match(/^from:[\t ]?(.*(?:\r?\n\s+.*)*\r?\n)/im);
+       const from = fromMatch && fromMatch[1] ? fromMatch[1] : "";
+       if (from) {
+         header = header + "Reply-To: " + from;
+         data.log({
+           level: "info",
+           message: "Added Reply-To address of: " + from,
+         });
+       }
+     }
+
+     // Replace "From:" header with verified domain or original recipient
+     header = header.replace(
+       /^from:[\t ]?(.*(?:\r?\n\s+.*)*)/gim,
+       function (match, from) {
+         const fromText = data.config.fromEmail
+           ? `From: ${from.replace(/<(.*)>/, "").trim()} <${data.config.fromEmail}>`
+           : `From: ${from.replace("<", "at ").replace(">", "")} <${data.originalRecipient}>`;
+         return fromText;
+       }
+     );
+
+     // Add subject prefix
+     if (data.config.subjectPrefix) {
+       header = header.replace(/^subject:[\t ]?(.*)/gim, (match, subject) => {
+         return `Subject: ${data.config.subjectPrefix}${subject}`;
+       });
+     }
+
+     // Replace "To" header with manually defined one
+     if (data.config.toEmail) {
+       header = header.replace(
+         /^to:[\t ]?(.*)/gim,
+         `To: ${data.config.toEmail}`
+       );
+     }
+
+     // Remove certain headers
+     const headersToRemove = [
+       "return-path:",
+       "sender:",
+       "message-id:",
+       "dkim-signature:",
+     ];
+     headersToRemove.forEach((headerToRemove) => {
+       const regex = new RegExp(
+         `^${headerToRemove}[\\t ]?.*\\r?\\n(\\s+.*\\r?\\n)*`,
+         "mgi"
+       );
+       header = header.replace(regex, "");
+     });
+
+     data.emailData = header + body;
+     return data;
+   };
+
+   /**
+    * Send email using the SES sendRawEmail command.
+    */
+   exports.sendMessage = async function (data) {
+     const sesClient = new SESClient();
+
+     const params = {
+       Destinations: data.recipients,
+       Source: data.originalRecipient,
+       RawMessage: {
+         Data: data.emailData,
+       },
+     };
+
+     data.log({
+       level: "info",
+       message:
+         "sendMessage: Sending email via SES. Original recipients: " +
+         data.originalRecipients.join(", ") +
+         ". Transformed recipients: " +
+         data.recipients.join(", ") +
+         ".",
+     });
+
+     try {
+       const result = await sesClient.send(new SendRawEmailCommand(params));
+       data.log({
+         level: "info",
+         message: "sendRawEmail() successful.",
+         result: result,
+       });
+     } catch (err) {
+       data.log({
+         level: "error",
+         message: "sendRawEmail() returned error.",
+         error: err,
+         stack: err.stack,
+       });
+       throw new Error("Error: Email sending failed.");
+     }
+
+     return data;
+   };
+
+   /**
+    * Handler function to be invoked by AWS Lambda with an inbound SES email as
+    * the event.
+    */
+   exports.handler = async function (event, context, callback) {
+     const steps = [
+       exports.parseEvent,
+       exports.transformRecipients,
+       exports.fetchMessage,
+       exports.processMessage,
+       exports.sendMessage,
+     ];
+
+     let data = {
+       event: event,
+       context: context,
+       callback: callback,
+       config: defaultConfig,
+       log: function (entry) {
+         entry.level = entry.level || "info";
+         entry.message = entry.message || "";
+         if (entry.level !== "debug" || data.config.debug) {
+           console.log("LOG " + entry.level + ": " + entry.message);
+         }
+       },
+     };
+
+     for (let step of steps) {
+       try {
+         await step(data);
+       } catch (error) {
+         data.log({
+           level: "error",
+           message: "Step failed: " + step.name,
+           error: error,
+         });
+         return callback(error);
+       }
+     }
+   };
+   ```
+
+   </details>
 
    Also, don't forget to change the defaultConfig values to match yours. Please read the comment on top of the variable for information about each field value.
 
