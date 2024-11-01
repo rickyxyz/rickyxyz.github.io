@@ -15,6 +15,7 @@ export default defineConfig({
     }
   }), preact(),
   sitemap({
+    filter: (page) => page !== 'https://rickyxyz.dev/frontendmentor-projects/',
     entryLimit: 1000,
     changefreq: 'weekly',
   })]
