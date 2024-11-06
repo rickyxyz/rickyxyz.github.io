@@ -14,10 +14,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
   <head>
     <!-- Google tag (gtag.js) -->
     <script
-      type="text/partytown"
       is:inline
       src="https://www.googletagmanager.com/gtag/js?id=G-832C1JQ2T7"></script>
-    <script type="text/partytown" is:inline>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
@@ -28,7 +27,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     </script>
 
     <!-- Google Tag Manager -->
-    <script type="text/partytown" is:inline>
+    <script is:inline>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
