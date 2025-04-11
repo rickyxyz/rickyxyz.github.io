@@ -9,7 +9,7 @@
 }
 
 html {
-  --accent: #e35000;
+  --accent: #072572;
   --background: #eef1f6;
   --text: #0f1219;
   --code-block: #bfc2c9;
@@ -18,7 +18,7 @@ html {
 }
 
 html.dark {
-  --accent: #b03e00;
+  --accent: #A9D4FF;
   --background: #0f1219;
   --text: #bcc4d0;
   --code-block: #bfc2c9;
