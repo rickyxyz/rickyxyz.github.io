@@ -1,0 +1,23 @@
+---
+title: "A Mistake Is Not An Error"
+description: "A mistake is not an error. There are differences between a mistake and an error. The way to handle them also differs."
+pubDate: "Mar 13 2025"
+heroImage: "/blog-placeholder-2.jpg"
+---
+
+I think the topic of this post is related to "Error Prevention and Handling" from the Human-Computer Interaction (HCI) usability principle. I think most people (in related fields) are already aware of this topic.
+
+Recently, a client asked me to make an event schedule and its editor interface (imagine Google Calendar but way simpler) for one of their event's websites. The implementation is quite straightforward, a button to an item to the schedule, an editor for the item details, some validation, sorting the items by time, and making the frontend display the data. The implementation itself is not technically complex. But, something interesting happened when the client tried to interact with the interface.
+
+I was surprised that the client asked me how to manually sort the events (i.e. putting a certain event before another). Me being me, I told them that the events are automatically sorted by their date and time to prevent mistakes and remove the need to sort. Thankfully, the client understood what I meant and apparently, they just needed a reverse sorting order. From that interaction, something just clicked in me. A mistake is not an error, let me explain.
+
+Say, for example, you are writing a list of alphabetically sorted fruits from 'A' to 'Z' in Notepad. If you put 'Banana' before 'Apple', I would call that a mistake. However, if Notepad crashes after you type 'Apple', that is what I would call an error. In reality, Notepad won't crash if you somehow messed up the order of your fruits, because it does not care about ordering or what you typed in as long as it can be parsed to text. Why is all of this important? Well, because the principle is called "Error Prevention and Handling", I think it is pretty reasonable to expect that we need to understand what an error is, so we apply the prevention and handling part to it. I think my mental model of what counts as an error is quite simple and quite common; If a system cannot continue to function normally after a specific sequence of events I would categorize that sequence of events as an error.
+
+Going back to the original schedule editor, allowing the client to sort the events manually is not an error, because the system won't crash when the order of items is changed. However is it wrong to see an event at 8 AM nestled between events at 6 and 7 AM in an otherwise orderly list? I would say so. However, here is where things get more 'human'. If all stakeholders agree that the ordering is not wrong, then it is not wrong, and vice versa. After all, it’s our design choices as humans that decide what is right and wrong.
+
+I think it is good to have an understanding of what an error is and what is not. That being said, I don't think having too rigid of a definition would be good either since the real world often doesn't agree nicely with a rigid definition of stuff. Why do I think it's important to have an understanding of this topic? Because it will result in different ways of handling an error and a mistake. With an error, I would try to prevent it from happening in the first place or make sure there is a recovery path if the error occurs. But with a mistake, I can be a bit more lenient with how to handle it, I can ask users to make sure if they inputted the right thing or not, or I can make sure that the mistake is easily reversible.
+
+Anyhow, this is the end of this post. I don't know what else to say. For anyone reading this, thank you for reading until the end. Also, what do you think about this topic? Do you have your mental model of an error and mistake? Do you think I just wrote a bunch of nonsense? Leave a comment, and tell me what you think. Cause I am curious about what other people think about this topic too.
+
+Edit:
+Now, that I think about it, maybe this is another way I can put the difference between an error and a mistake into words. An error is something the system can detect, but a mistake is something a system cannot detect. Not sure if putting it this way is a good way to say it or not.
