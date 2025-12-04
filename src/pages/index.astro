@@ -11,14 +11,14 @@ const posts = (await getCollection("blog"))
 <BaseLayout>
   <main>
     <section class="intro">
-      <h1>I Make Stuff 🏗️</h1>
+      <h1>Hi, I'm Ricky 👋</h1>
       <div class="subtitle">
-        <p>Because I can</p>
+        <p>I build websites and webapps on the internet.</p>
         <hr />
       </div>
       <p>
-        Hello, I'm Ricky, and this is my personal blog. This is where I
-        store all my blog posts.
+        Welcome to my website where I put whatever I'm working on or thinking
+        about.
       </p>
     </section>
     <section class="list posts">
@@ -47,7 +47,7 @@ const posts = (await getCollection("blog"))
     margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    gap: 3rem;
   }
   h1 {
     margin-bottom: 0.5rem;
@@ -56,6 +56,8 @@ const posts = (await getCollection("blog"))
   .subtitle p {
     padding-left: 1px;
     margin: 0;
+    font-size: 1.2rem;
+    color: var(--secondary);
   }
   .list a p {
     display: inline-block;
@@ -72,7 +74,7 @@ const posts = (await getCollection("blog"))
   .see_more {
     margin-left: 1.2rem;
   }
-  
+
   @media (max-width: 720px) {
     main {
       margin-bottom: 2rem;
