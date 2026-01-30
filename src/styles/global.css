@@ -5,7 +5,7 @@
  */
 
 :root {
-  font-size: 18px;
+  font-size: 17px;
 }
 
 html {
@@ -49,6 +49,8 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   max-width: 720px;
   width: 100%;
@@ -79,15 +81,15 @@ h6 {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 h2 {
-  font-size: 2.1rem;
+  font-size: 2rem;
 }
 
 h3 {
-  font-size: 2rem;
+  font-size: 1.9rem;
 }
 
 h4 {
@@ -113,7 +115,7 @@ a:hover {
 }
 
 p {
-  margin-bottom: 1.3rem;
+  margin: 0.6rem 0;
 }
 
 .prose p {
@@ -174,33 +176,29 @@ hr {
 }
 
 @media (max-width: 720px) {
-  body {
-    font-size: 16px;
-  }
-
   main {
     min-height: calc(100vh - 18rem);
-    padding: 1em;
+    padding: 1rem;
   }
 
   h1 {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
   }
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 
   h3 {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
   }
 
   h4 {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 
   h5 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .prose h1,
