@@ -6,11 +6,33 @@ import { SITE_TITLE } from "../consts";
 
 <header>
   <nav>
+    <a href="/">
+      <svg
+        viewBox="0 0 256 256"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        role="presentation"
+        height="18px"
+        width="18px"
+        style="margin-right: 0.25rem;"
+      >
+        <rect
+          x="101"
+          y="32"
+          width="150"
+          height="150"
+          transform="rotate(30 101 32)"
+          fill="var(--accent)"
+          id="logo_rect"></rect>
+      </svg>
+      <h2>{SITE_TITLE}</h2>
+    </a>
     <div class="internal-links">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/blog">Blog</HeaderLink>
     </div>
   </nav>
+  <div class="separator"></div>
   <ThemeSwitcher />
 </header>
 <style>
@@ -61,8 +83,12 @@ import { SITE_TITLE } from "../consts";
 
   @media only screen and (max-width: 720px) {
     header {
-      gap: 1.1rem;
+      gap: 0.5rem;
       margin-bottom: 0.4rem;
+    }
+
+    h2 {
+      font-size: 1rem;
     }
 
     .separator {
@@ -72,8 +98,10 @@ import { SITE_TITLE } from "../consts";
     nav {
       grid-row: 1 / 3;
       display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
+      align-items: center;
+    }
+    nav > a {
+      display: flex;
     }
   }
 </style>
